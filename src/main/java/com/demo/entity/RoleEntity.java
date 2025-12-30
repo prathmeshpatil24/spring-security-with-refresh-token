@@ -20,11 +20,11 @@ import java.util.Set;
 public class RoleEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
     private Integer id;
 
-    @Column(name = "role_type")
+    @Column(name = "role_type", nullable = false, length = 50)
     @Enumerated(EnumType.STRING)
     private RoleType roleType;
 

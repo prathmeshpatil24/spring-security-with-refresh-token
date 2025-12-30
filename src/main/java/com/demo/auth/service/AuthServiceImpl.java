@@ -1,9 +1,8 @@
-package com.demo.service;
+package com.demo.auth.service;
 
-import com.demo.dto.LoginRequest;
-import com.demo.dto.LoginResponse;
-import com.demo.dto.RegistrationDto;
-import com.demo.entity.RefreshTokenEntity;
+import com.demo.auth.dto.LoginRequest;
+import com.demo.auth.dto.LoginResponse;
+import com.demo.refresh.entity.RefreshTokenEntity;
 import com.demo.entity.RoleEntity;
 import com.demo.entity.UserEntity;
 import com.demo.enums.RoleType;
@@ -11,6 +10,7 @@ import com.demo.repository.RoleRepository;
 import com.demo.repository.UserDataRepo;
 import com.demo.security.CustomUserDetails;
 import com.demo.security.JWTService;
+import com.demo.refresh.service.RefreshTokenService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +19,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -31,10 +30,10 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private UserDataRepo userDataRepo;
-    
+
     @Autowired
     private JWTService jwtService;
-    
+
     @Autowired
     private RefreshTokenService refreshTokenService;
 
@@ -43,40 +42,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Override
-    public UserEntity registerAdmin(RegistrationDto dto) {
-        if (userDataRepo.findByEmail(dto.getEmail()).isPresent()) {
-            throw new RuntimeException("user with this email is already present, please try new mail id");
-        }
 
-
-        RoleEntity adminRole = roleRepository
-                .findByRoleType(RoleType.ROLE_ADMIN)
-                .orElseThrow(() ->
-                        new RuntimeException("ROLE_ADMIN not found in DB")
-                );
-
-        try {
-
-            UserEntity user = new UserEntity();
-            user.setFirstName(dto.getFirstName());
-            user.setLastName(dto.getLastName());
-            user.setEmail(dto.getEmail());
-            user.setPassword(passwordEncoder.encode(dto.getPassword()));
-            user.setIsActive(true);
-            user.getRoles().add(adminRole);
-
-            return userDataRepo.save(user);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     @Override
     public LoginResponse login(LoginRequest loginRequest,
@@ -109,7 +79,8 @@ public class AuthServiceImpl implements AuthService {
                 .httpOnly(true)
                 .secure(true)
                 .path("/")
-                .maxAge(Duration.ofDays(7))
+//                .maxAge(Duration.ofDays(7))
+                .maxAge(Duration.ofMinutes(10))
                 .sameSite("Strict")
                 .build();
 

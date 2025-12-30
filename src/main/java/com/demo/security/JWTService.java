@@ -49,13 +49,13 @@ public class JWTService {
         Claims claims = extractAllClaims(token);
         return claims.getSubject();
     }
-    
+
     //extract role
     public List<String>extractRoles(String token){
         Claims claims = extractAllClaims(token);
         return claims.get("roles", List.class);
     }
-    
+
     //extract active status
     public Boolean extractIsActive(String token){
         Claims claims = extractAllClaims(token);

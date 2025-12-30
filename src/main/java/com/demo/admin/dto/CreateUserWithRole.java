@@ -1,17 +1,19 @@
-package com.demo.dto;
-
+package com.demo.admin.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RegistrationDto {
-
+@AllArgsConstructor
+@NoArgsConstructor
+public class CreateUserWithRole {
 
     @NotBlank
     @Size(min = 2, max =50, message = " first name must be between 2 and 50 characters")
@@ -32,5 +34,6 @@ public class RegistrationDto {
     )
     private String password;
 
-
+    @NotBlank(message = "Role must not be empty")
+    private String roleName;
 }

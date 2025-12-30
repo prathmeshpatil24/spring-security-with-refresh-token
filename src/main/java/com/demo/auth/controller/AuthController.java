@@ -1,19 +1,17 @@
-package com.demo.controller;
+package com.demo.auth.controller;
 
 
-import com.demo.dto.LoginRequest;
-import com.demo.dto.LoginResponse;
-import com.demo.dto.RegistrationDto;
+import com.demo.auth.dto.LoginRequest;
+import com.demo.auth.dto.LoginResponse;
 
-import com.demo.entity.RefreshTokenEntity;
+import com.demo.refresh.entity.RefreshTokenEntity;
 import com.demo.entity.RoleEntity;
 import com.demo.entity.UserEntity;
 import com.demo.security.JWTService;
-import com.demo.service.AuthServiceImpl;
-import com.demo.service.RefreshTokenService;
+import com.demo.auth.service.AuthServiceImpl;
+import com.demo.refresh.service.RefreshTokenService;
 
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpHeaders;
@@ -37,20 +35,6 @@ public class AuthController {
 
     @Autowired
     private JWTService jwtService;
-
-    @PostMapping("/admin/register")
-    public ResponseEntity<?> registerAdmin(
-            @Valid @RequestBody RegistrationDto dto) {
-
-        UserEntity user = authService.registerAdmin(dto);
-
-        return ResponseEntity.ok(
-                Map.of(
-                        "message", "User registered successfully!",
-                        "email", user.getEmail()
-                )
-        );
-    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request,
@@ -93,7 +77,12 @@ public class AuthController {
                         .toList()
         );
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(Map.of(
+                        "status", HttpStatus.OK.value(),
+                        "message", "Login Successfully",
+                        "data", response
+                ));
     }
 
     @PostMapping("/logout")
@@ -113,6 +102,9 @@ public class AuthController {
 
         response.addHeader(HttpHeaders.SET_COOKIE, deleteCookie.toString());
 
-        return ResponseEntity.ok("Logged out successfully");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                .body(Map.of(
+                        "status", HttpStatus.NO_CONTENT.value(),
+                        "message", "Logged out successfully"));
     }
 }

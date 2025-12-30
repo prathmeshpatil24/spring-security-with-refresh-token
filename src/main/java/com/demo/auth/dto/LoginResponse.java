@@ -1,4 +1,4 @@
-package com.demo.dto;
+package com.demo.auth.dto;
 
 import com.demo.enums.RoleType;
 import lombok.AllArgsConstructor;

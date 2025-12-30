@@ -1,9 +1,8 @@
-package com.demo.service;
+package com.demo.refresh.service;
 
-import com.demo.entity.RefreshTokenEntity;
+import com.demo.refresh.entity.RefreshTokenEntity;
 import com.demo.entity.UserEntity;
-import com.demo.repository.RefreshTokenRepo;
-import com.demo.repository.UserDataRepo;
+import com.demo.refresh.repository.RefreshTokenRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

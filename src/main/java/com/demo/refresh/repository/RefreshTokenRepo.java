@@ -1,6 +1,6 @@
-package com.demo.repository;
+package com.demo.refresh.repository;
 
-import com.demo.entity.RefreshTokenEntity;
+import com.demo.refresh.entity.RefreshTokenEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

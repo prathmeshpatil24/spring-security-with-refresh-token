@@ -1,5 +1,6 @@
-package com.demo.entity;
+package com.demo.refresh.entity;
 
+import com.demo.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
