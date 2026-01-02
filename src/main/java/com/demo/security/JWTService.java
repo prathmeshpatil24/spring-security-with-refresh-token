@@ -80,7 +80,7 @@ public class JWTService {
 
         claims.put("roles", userEntity.getRoles()
                 .stream()
-                .map(roleEntity -> roleEntity.getRoleType().name()) //ROLE_USER, ROLE_ADMIN
+                .map(roleEntity -> roleEntity.getRoleType()) //ROLE_USER, ROLE_ADMIN
                 .toList()
         );
 

@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         // 5. Extract roles
-        List<RoleType> roleTypeList = userEntity.getRoles()
+        List<String> roleTypeList = userEntity.getRoles()
                 .stream()
                 .map(RoleEntity::getRoleType)
                 .toList();

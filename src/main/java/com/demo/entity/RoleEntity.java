@@ -25,8 +25,8 @@ public class RoleEntity {
     private Integer id;
 
     @Column(name = "role_type", nullable = false, length = 50)
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
+    //@Enumerated(EnumType.STRING)
+    private String roleType;
 
     @JsonBackReference
     @ManyToMany(mappedBy = "roles")

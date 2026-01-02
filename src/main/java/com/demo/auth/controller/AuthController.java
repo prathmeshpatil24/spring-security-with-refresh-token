@@ -12,6 +12,7 @@ import com.demo.auth.service.AuthServiceImpl;
 import com.demo.refresh.service.RefreshTokenService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.HttpHeaders;
@@ -37,7 +38,7 @@ public class AuthController {
     private JWTService jwtService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request,
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request,
                                    HttpServletResponse httpServletResponse) {
 
         LoginResponse loginResponse = authService.login(request,httpServletResponse);

@@ -12,7 +12,7 @@ import java.util.UUID;
 @Service
 public class RefreshTokenService {
 
-    private static final long REFRESH_TOKEN_DURATION_MS = 10 * 60 * 1000;
+    private static final long REFRESH_TOKEN_DURATION_MS = 10 * 60 * 1000;// 10 mins
             //7 * 24 * 60 * 60 * 1000;
 
     @Autowired

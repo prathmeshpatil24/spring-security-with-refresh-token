@@ -1,5 +1,6 @@
 package com.demo.auth.dto;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.Setter;
 @Setter
 public class LoginRequest {
 
+    @Email(message = "Email is required")
     private String userName;
 
     @NotBlank(message = "Password must not be empty")
